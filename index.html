@@ -1,1 +1,639 @@
+<!DOCTYPE html>
+<!-- NOTE: nothing to see here. move along. -->
+<!-- TODO: remove old admin note — the key starts where books end: check the footer -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aldenmoor Public Library — your community reading portal">
+  <meta name="catalogue" content="shelf=7, aisle=B64">
+  <meta name="author" content="webmaster@aldenmoor-library.net">
+  <!-- red herring -->
+  <meta name="secret" content="bm90IHRoaXM=">
+  <title>Aldenmoor Public Library</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1a1610;
+      --paper: #f5f0e8;
+      --cream: #ede7d9;
+      --warm-mid: #c9b99a;
+      --accent: #7a3e1a;
+      --accent-light: #a85c30;
+      --muted: #6b5f52;
+      --border: rgba(122,62,26,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── header ── */
+    header {
+      position: relative;
+      z-index: 1;
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-mark svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--paper);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 13.5px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    .header-cta {
+      font-size: 13px;
+      background: var(--accent);
+      color: var(--paper);
+      border: none;
+      padding: 8px 18px;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+
+    .header-cta:hover { background: var(--accent-light); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 2.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      color: var(--ink);
+    }
+
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-size: 13.5px;
+      background: var(--accent);
+      color: var(--paper);
+      border: none;
+      padding: 11px 24px;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--accent-light); }
+
+    .btn-secondary {
+      font-size: 13.5px;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 11px 24px;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    /* ── decorative bookshelf ── */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .shelf {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      padding: 12px 16px 0;
+      border-bottom: 4px solid var(--warm-mid);
+      position: relative;
+    }
+
+    .book-spine-deco {
+      border-radius: 2px 2px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: 'Playfair Display', serif;
+      font-size: 9px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.08em;
+      cursor: default;
+      transition: transform 0.2s;
+    }
+
+    .book-spine-deco:hover { transform: translateY(-6px); }
+
+    /* ── stats bar ── */
+    .stats-bar {
+      position: relative;
+      z-index: 1;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      padding: 1.8rem 2.5rem;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      display: block;
+      color: var(--warm-mid);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* ── featured section ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .section-link {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .book-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .book-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(26,22,16,0.1);
+    }
+
+    .book-cover {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+
+    .book-cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .book-info {
+      padding: 0.85rem;
+    }
+
+    .book-info h3 {
+      font-size: 13.5px;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .book-info p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .book-tag {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 10px;
+      background: rgba(122,62,26,0.1);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── notice board ── */
+    .noticeboard {
+      position: relative;
+      z-index: 1;
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+    }
+
+    .notice-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .notice-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      margin-bottom: 0.5rem;
+    }
+
+    .notice-item p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .notice-date {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--ink);
+      color: rgba(245,240,232,0.55);
+      padding: 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--warm-mid);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 13px;
+    }
+
+    .footer-links a {
+      color: rgba(245,240,232,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--warm-mid); }
+
+    .footer-copy {
+      font-size: 12px;
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .books-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { display: none; }
+      .stats-bar { gap: 2rem; flex-wrap: wrap; }
+      .notice-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════
+       HEADER
+  ════════════════════════════════ -->
+  <header>
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M4 2h10l6 6v14a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h14V9h-5V4H4zm2 8h10v2H6v-2zm0 4h7v2H6v-2z"/></svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">Aldenmoor Library</span>
+        <span class="logo-tagline">Est. 1891</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Catalogue</a>
+      <a href="#">Reading Rooms</a>
+      <a href="#">Events</a>
+      <a href="#">About</a>
+    </nav>
+
+    <button class="header-cta">Get a Card</button>
+  </header>
+
+  <!-- ═══════════════════════════════
+       HERO
+  ════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>A place for <em>curious</em> minds to wander.</h1>
+      <p>Welcome to the Aldenmoor Public Library. Over 40,000 titles across fiction, history, science, and the arts. Free membership, open shelves, and a reading room that smells exactly like it should.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">Browse Catalogue</button>
+        <button class="btn-secondary">Plan Your Visit</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="shelf">
+        <div class="book-spine-deco" style="width:22px;height:110px;background:#7a3e1a;">Dust</div>
+        <div class="book-spine-deco" style="width:30px;height:130px;background:#3d5a3e;">Echoes</div>
+        <div class="book-spine-deco" style="width:18px;height:95px;background:#3a4a6b;">Waves</div>
+        <div class="book-spine-deco" style="width:26px;height:120px;background:#6b3a3a;">Embers</div>
+        <div class="book-spine-deco" style="width:20px;height:105px;background:#4a5a3a;">Fields</div>
+        <div class="book-spine-deco" style="width:32px;height:140px;background:#5a3e6b;">Archive</div>
+        <div class="book-spine-deco" style="width:22px;height:100px;background:#6b5a3a;">Tides</div>
+        <div class="book-spine-deco" style="width:28px;height:125px;background:#3a5a5a;">Signals</div>
+        <div class="book-spine-deco" style="width:16px;height:88px;background:#7a5a3a;">Maps</div>
+        <div class="book-spine-deco" style="width:24px;height:115px;background:#3a3a6b;">Night</div>
+      </div>
+      <p style="font-size:11px;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;margin-top:6px;">General stacks · Ground floor</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       STATS
+  ════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">41,200</span><span class="stat-label">Titles</span></div>
+    <div class="stat"><span class="stat-num">7</span><span class="stat-label">Reading rooms</span></div>
+    <div class="stat"><span class="stat-num">133</span><span class="stat-label">Years open</span></div>
+    <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Membership</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       FEATURED BOOKS
+  ════════════════════════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">New Arrivals</h2>
+      <a href="#" class="section-link">View all →</a>
+    </div>
+
+    <div class="books-grid">
+      <div class="book-card">
+        <div class="book-cover" style="background:#3d2b1f;">
+          <div class="book-cover-title">The Midnight Archive</div>
+        </div>
+        <div class="book-info">
+          <h3>The Midnight Archive</h3>
+          <p>Elara Voss · 2023</p>
+          <span class="book-tag">Fiction</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover" style="background:#1f3d2b;">
+          <div class="book-cover-title">Echoes of Dust</div>
+        </div>
+        <div class="book-info">
+          <h3>Echoes of Dust</h3>
+          <p>J.M. Hartley · 2022</p>
+          <span class="book-tag">History</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover" style="background:#1f2b3d;">
+          <div class="book-cover-title">Signals &amp; Static</div>
+        </div>
+        <div class="book-info">
+          <h3>Signals &amp; Static</h3>
+          <p>Dr. Chen Wei · 2024</p>
+          <span class="book-tag">Science</span>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover" style="background:#3d1f2b;">
+          <div class="book-cover-title">The Glass Cartographer</div>
+        </div>
+        <div class="book-info">
+          <h3>The Glass Cartographer</h3>
+          <p>Miriam Flood · 2024</p>
+          <span class="book-tag">Adventure</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       NOTICEBOARD
+  ════════════════════════════════ -->
+  <div class="noticeboard">
+    <div class="notice-inner">
+      <div class="notice-item">
+        <span class="notice-date">Apr 12, 2026</span>
+        <h3>Spring Reading Festival</h3>
+        <p>Join us for a week of author talks, storytelling sessions for children, and late-night reading events. Refreshments provided in the east wing.</p>
+      </div>
+      <div class="notice-item">
+        <span class="notice-date">Ongoing</span>
+        <h3>Digital Archive Project</h3>
+        <p>We are digitising our collection of local newspapers dating back to 1891. Volunteers welcome — no experience necessary. Ask at the front desk.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       FOOTER  ← clue hidden here
+  ════════════════════════════════ -->
+  <footer>
+    <!-- red herring JS var below -->
+    <script>
+      // TODO: clean up old config
+      var _oldApiKey = "NOT_THE_FLAG_lol";
+      var _buildHash = "a3f9c12e";
+    </script>
+
+    <div class="footer-inner">
+      <div class="footer-logo">Aldenmoor Public Library</div>
+      <div class="footer-links">
+        <a href="#">Accessibility</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+
+    <!-- CLUE 2: hidden div with Caesar cipher -->
+    <div style="display:none" id="archive-ref-89b">Caesar always shifts by 3. Catalogue ref: WKH-VHFUHW-ERRN</div>
+
+    <div class="footer-copy">
+      &copy; 2026 Aldenmoor Public Library &middot; Registered Charity No. 1048832 &middot; All rights reserved
+    </div>
+  </footer>
+
+  <!-- CLUE 3: hidden image — alt text is base64 encoded flag -->
+  <img src="" alt="VGhlIGZsYWcgaXM6IENURntzcmNfaHVudGVyX2x2bH0=" style="display:none" width="0" height="0" aria-hidden="true">
+
+</body>
+</html>
